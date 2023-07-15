@@ -22,7 +22,5 @@ runs:
         pip install requests openai
       shell: bash
     - name: Send HTTP request and check response
-      run: python .github/actions/http-check/http_check.py ${{ inputs.prompt }}
-      env:
-        OPENAI_API_KEY: ${{ inputs.openai_api_key }}
+      run: python .github/actions/http-check/http_check.py ${{ inputs.openai_api_key }} ${{ inputs.prompt }}
       shell: bash

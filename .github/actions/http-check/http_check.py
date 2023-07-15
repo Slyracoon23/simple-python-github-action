@@ -2,7 +2,6 @@ import openai
 import sys
 import os 
 
-openai.api_key = os.getenv('OPENAI_API_KEY')
 
 def query_gpt(prompt):
     response = openai.ChatCompletion.create(
@@ -31,5 +30,6 @@ def check_response(prompt):
     sys.exit(1)
 
 if __name__ == "__main__":
-  prompt = sys.argv[1]
+  openai.api_key = sys.argv[1]
+  prompt = sys.argv[2]
   check_response(prompt)
