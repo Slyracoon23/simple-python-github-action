@@ -1,4 +1,4 @@
-# .github/actions/http-check/action.yaml
+# .github/actions/http-check/action.yml
 
 name: 'HTTP Check'
 description: 'Send HTTP request and check response'
@@ -21,14 +21,5 @@ runs:
         pip install requests
       shell: bash
     - name: Send HTTP request and check response
-      run: |
-        python - <<EOF
-        import requests
-        response = requests.get('${{ inputs.url }}')
-        if 'success' in response.text:
-            print("Test Passed")
-        else:
-            print("Test Failed")
-            exit(1)
-        EOF
+      run: python .github/actions/http-check/http_check.py ${{ inputs.url }}
       shell: bash
