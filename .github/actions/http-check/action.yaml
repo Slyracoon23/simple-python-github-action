@@ -1,4 +1,4 @@
-# .github/actions/http-check/action.yml
+# .github/actions/http-check/action.yaml
 
 name: 'HTTP Check'
 description: 'Send HTTP request and check response'
