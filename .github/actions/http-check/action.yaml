@@ -1,0 +1,34 @@
+# .github/actions/http-check/action.yml
+
+name: 'HTTP Check'
+description: 'Send HTTP request and check response'
+inputs:
+  url:
+    description: 'URL to send HTTP request to'
+    required: true
+runs:
+  using: 'composite'
+  steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+    - name: Set up Python 3.9
+      uses: actions/setup-python@v2
+      with:
+        python-version: 3.9
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install requests
+      shell: bash
+    - name: Send HTTP request and check response
+      run: |
+        python - <<EOF
+        import requests
+        response = requests.get('${{ inputs.url }}')
+        if 'success' in response.text:
+            print("Test Passed")
+        else:
+            print("Test Failed")
+            exit(1)
+        EOF
+      shell: bash

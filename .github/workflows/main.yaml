@@ -1,0 +1,18 @@
+# .github/workflows/main.yml
+
+name: HTTP Test Workflow
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Run HTTP check
+        uses: ./.github/actions/http-check
+        with:
+          url: 'https://www.example.com'
