@@ -1,10 +1,11 @@
-# .github/actions/http-check/action.yml
-
 name: 'HTTP Check'
 description: 'Send HTTP request and check response'
 inputs:
   url:
     description: 'URL to send HTTP request to'
+    required: true
+  openai_api_key:
+    description: 'OpenAI API key'
     required: true
 runs:
   using: 'composite'
@@ -18,8 +19,10 @@ runs:
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
-        pip install requests
+        pip install requests openai
       shell: bash
     - name: Send HTTP request and check response
-      run: python .github/actions/http-check/http_check.py ${{ inputs.url }}
+      run: python .github/actions/http-check/http_check.py ${{ inputs.prompt }}
+      env:
+        OPENAI_API_KEY: ${{ inputs.openai_api_key }}
       shell: bash

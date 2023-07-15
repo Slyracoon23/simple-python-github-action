@@ -1,5 +1,3 @@
-# .github/workflows/main.yml
-
 name: HTTP Test Workflow
 
 on:
@@ -18,4 +16,5 @@ jobs:
       - name: Run HTTP check
         uses: ./.github/actions/http-check
         with:
-          url: 'https://www.example.com'
+          prompt: 'Output the word: success'
+          openai_api_key: ${{ secrets.OPENAI_API_KEY }}

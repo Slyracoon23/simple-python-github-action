@@ -1,17 +1,35 @@
-# .github/actions/http-check/http_check.py
-
-import requests
+import openai 
 import sys
+import os 
 
-def check_response(url):
-    response = requests.get(url)
-    print(response)
-    if 'success' in response.text:
-        print("Test Passed")
-    else:
-        print("Test Failed:", response.text)
-        sys.exit(1)
+openai.api_key = os.getenv('OPENAI_API_KEY')
+
+def query_gpt(prompt):
+    response = openai.ChatCompletion.create(
+        model="gpt-4",
+        temperature=0,
+        messages=[
+            {
+                "role": "system",
+                "content": "You are a helpful bot.",
+            },  
+            {"role": "user", "content": prompt}, 
+        ],
+    )
+
+    return response.choices[0].message.content
+
+def check_response(prompt):
+  response = query_gpt(prompt)
+  
+  print(response)
+
+  if 'success' in response:
+    print("Test Passed")
+  else:
+    print("Test Failed:", response)
+    sys.exit(1)
 
 if __name__ == "__main__":
-    url = sys.argv[1]
-    check_response(url)
+  prompt = sys.argv[1]
+  check_response(prompt)
